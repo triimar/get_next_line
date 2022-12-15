@@ -6,7 +6,7 @@
 /*   By: tmarts <tmarts@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 20:50:30 by tmarts            #+#    #+#             */
-/*   Updated: 2022/12/13 13:11:19 by tmarts           ###   ########.fr       */
+/*   Updated: 2022/12/14 13:42:44 by tmarts           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	*string = '\0';
 	return (string - s1_len - s2_len);
 }
+
 
 void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
