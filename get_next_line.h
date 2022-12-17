@@ -6,7 +6,7 @@
 /*   By: tmarts <tmarts@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 20:50:45 by tmarts            #+#    #+#             */
-/*   Updated: 2022/12/17 19:01:45 by tmarts           ###   ########.fr       */
+/*   Updated: 2022/12/17 21:16:52 by tmarts           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <stdio.h> // removeee!!
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 60
+#  define BUFFER_SIZE 12
 # endif
 
 /*get_next_line*/
@@ -30,7 +30,7 @@ char	*gnl_copier(char *str, size_t len);
 size_t	ft_strlen(const char *s);
 char	*ft_strljoin(char *s1, char *s2, int len_s2);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
-void	*ft_memcpy(void *dst, const void *src, size_t n);
+char	*ft_strdup(const char *s1);
 
 
 #endif
