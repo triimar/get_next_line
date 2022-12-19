@@ -28,8 +28,14 @@ char	*ft_strljoin(char *s1, char *s2, int len_s2)
 	int		s1_len;
 	int		j;
 
-	if (s1 == NULL)
-		return (ft_strdup(s2));
+	if (s1 == 0)
+	{
+		string = malloc(len_s2 + 1);
+		if (!string)
+			return (NULL);
+		ft_strlcpy(string, s2, len_s2 + 1);
+		return (string);
+	}
 	s1_len = ft_strlen(s1);
 	string = malloc(s1_len + len_s2 + 1);
 	if (!string)
@@ -37,12 +43,9 @@ char	*ft_strljoin(char *s1, char *s2, int len_s2)
 	while (*s1 != 0)
 		*string++ = *s1++;
 	j = 0;
-	while (j != len_s2)
-	{
+	while (j++ != len_s2)
 		*string++ = *s2++;
-		j++;
-	}	
-	*string = '\0';
+	*string = 0;
 	free(s1 - s1_len);
 	return (string - s1_len - len_s2);
 }
