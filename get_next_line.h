@@ -6,7 +6,7 @@
 /*   By: tmarts <tmarts@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 20:50:45 by tmarts            #+#    #+#             */
-/*   Updated: 2022/12/19 23:07:36 by tmarts           ###   ########.fr       */
+/*   Updated: 2022/12/20 20:09:45 by tmarts           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,18 @@
 # include <stdio.h> // removeee!!
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 4
+#  define BUFFER_SIZE 22
 # endif
 
 /*get_next_line*/
 char	*get_next_line(int fd);
 int		next_line_found(char *str);
-char	*gnl_copier(char *str, size_t len);
+char	*reader(int fd, char *line, char **leftovers);
 
 /*utils*/
 size_t	ft_strlen(const char *s);
 char	*ft_strljoin(char *s1, char *s2, int len_s2);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
-char	*ft_strdup(const char *s1);
-
+char	*ft_strndup(const char *str, size_t len);
 
 #endif

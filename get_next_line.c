@@ -6,7 +6,7 @@
 /*   By: tmarts <tmarts@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 18:11:01 by tmarts            #+#    #+#             */
-/*   Updated: 2022/12/19 23:44:31 by tmarts           ###   ########.fr       */
+/*   Updated: 2022/12/20 20:32:10 by tmarts           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,189 +29,6 @@ int	next_line_found(char *str)
 	return (0);
 }
 
-char	*gnl_copier(char *str, size_t len)
-{
-	char	*dst;
-
-	if (!str)
-		return (NULL);
-	dst = malloc((len + 1) * sizeof(char));
-	if (!dst)
-		return (NULL);
-	ft_strlcpy(dst, str, len + 1);
-	return (dst);
-}
-
-// char	*get_next_line(int fd)
-// {
-// 	static char	leftovers[BUFFER_SIZE];
-// 	char		*buf;
-// 	char		*current;
-// 	int			len;
-// 	int			have_read;
-
-// 	buf = NULL;
-// 	len = (next_line_found(leftovers));
-// 	if (len > 0)
-// 	{
-// 		current = gnl_copier(leftovers, len);
-// 		if (current == 0)
-// 			return (0);
-// 		ft_strlcpy(leftovers, leftovers + len, BUFFER_SIZE - len + 1);
-// 		free (buf);
-// 		return (current);
-// 	}
-// 	if (len == 0)
-// 	{
-// 		// current = NULL;
-// 		// current = gnl_copier(leftovers, ft_strlen(leftovers));
-// 		// if (current == 0)
-// 		// 	return (0);
-// 		if(!buf)
-// 		{
-// 			buf = malloc((BUFFER_SIZE + 1) * sizeof(char)); //
-// 			if (!buf)
-// 			{
-// 				free (current);
-// 				return (NULL);
-// 			}
-// 			buf[BUFFER_SIZE] = 0;
-// 		}	
-// 		have_read = read(fd, buf, BUFFER_SIZE);
-// 		if (have_read <= 0)
-// 		{
-// 			free (buf);
-// 			free (current);
-// 			ft_bzero(leftovers, BUFFER_SIZE);
-// 			return (0);
-// 		}
-// 		// if (have_read == 0)
-// 		// {
-// 		// 	free (buf);
-// 		// 	free (current);
-// 		// 	return (0);
-// 		// }
-// 		buf[have_read] = 0;
-// 		len = next_line_found(buf);
-// 		while (len == 0)
-// 		{
-// 			current = ft_strljoin(current, buf, have_read);
-// 			if (have_read < BUFFER_SIZE)
-// 			{
-// 				free (buf);
-// 				return (current);
-// 			}
-// 			have_read = read(fd, buf, BUFFER_SIZE);
-// 			if (have_read < 0)
-// 			{
-// 				free (buf);
-// 				free (current);
-// 				ft_bzero(leftovers, BUFFER_SIZE);
-// 				return (0);
-// 			}
-// 			if (have_read == 0)
-// 			{
-// 				free (buf);
-// 				return (current);
-// 			}
-// 			buf[have_read] = 0;
-// 			len = next_line_found(buf);
-// 		}
-// 		if (len > 0)
-// 		{
-// 			current = ft_strljoin(current, buf, len);
-// 			ft_strlcpy(leftovers, buf + len, BUFFER_SIZE - len + 1);
-// 			//printf("leftovers-----------> [%s]", leftovers);
-// 			free(buf);
-// 			return (current);
-// 		}
-// 		free (buf);
-// 		return (current);//??
-// 	}
-// 	free (buf);
-// 	// free (current);
-// 	return (0);
-// }
-
-/* reader is used when there is no new line 
-and the leftovers and the content of leftovers has
-been duplicated into the current string - the variable char *line*/
-
-// char	*reader(int fd, char *line, char *leftovers)
-// {
-// 	char	*buf;
-// 	int		read_return;
-// 	int		len;
-
-// 	buf = malloc(BUFFER_SIZE + 1 * sizeof(char));
-// 	if (!buf)
-// 		return (free(line), NULL);
-// 	read_return = read(fd, buf, BUFFER_SIZE);
-// 	if (read_return <= 0)
-// 	{
-// 		free(buf);
-// 		ft_bzero(leftovers, BUFFER_SIZE);
-// 		free (line);
-// 		return (0);
-// 	}
-// 	buf[read_return] = 0;
-// 	while (next_line_found(buf) == 0)
-// 	{
-// 		if (read_return < 0)
-// 		{
-// 			free(buf);
-// 			free (line);
-// 			ft_bzero(leftovers, BUFFER_SIZE);
-// 			return (0);
-// 		}
-// 		if (read_return == 0)
-// 		{
-// 			ft_bzero(leftovers, BUFFER_SIZE);
-// 			free(buf);
-// 			return (line);
-// 		}
-// 		buf[read_return] = 0;
-// 		line = ft_strljoin(line, buf, read_return);
-// 		read_return = read(fd, buf, BUFFER_SIZE);
-// 	}
-// 	len = next_line_found(buf);
-// 	line = ft_strljoin(line, buf, len);
-// 	ft_strlcpy(leftovers, buf + len, BUFFER_SIZE - len + 1);
-// 	free(buf);
-// 	return (line);
-// }
-
-// char	*get_next_line(int fd)
-// {
-// 	static char	leftovers[BUFFER_SIZE];
-// 	char		*current;
-// 	int			len;
-
-// 	len = (next_line_found(leftovers));
-// 	if (len > 0)
-// 	{
-// 		current = gnl_copier(leftovers, len);
-// 		if (current == 0)
-// 			return (0);
-// 		ft_strlcpy(leftovers, leftovers + len, BUFFER_SIZE - len + 1);
-// 		return (current);
-// 	}
-// 	else
-// 	{
-// 		// if (*leftovers == 0)
-// 		// 	current = NULL;
-// 		// else
-// 		// {
-// 		current = gnl_copier(leftovers, ft_strlen(leftovers));
-// 		if (current == 0)
-// 			return (0);
-// 		current = reader(fd, current, leftovers);
-// 		if (current == 0)
-// 			return (0);
-// 		return (current);
-// 	}
-// }
-
 char	*reader(int fd, char *line, char **leftovers)
 {
 	char	*buf;
@@ -222,46 +39,38 @@ char	*reader(int fd, char *line, char **leftovers)
 	if (!buf)
 		return (free(line), NULL);
 	read_return = read(fd, buf, BUFFER_SIZE);
-	// printf("read return ---------> %d\n", read_return);//
-	if (read_return <= 0)
-	{
-		free (buf);
-		free (line);
-		return (0);
-	}
+	if (read_return < 0)
+		return (free(line), free(buf), NULL);
 	buf[read_return] = 0;
+	if (read_return == 0)
+	{
+		if (line == NULL) 
+			return(free(line), free(buf), NULL);
+		else
+			return (free(buf), line);
+	}
 	while (next_line_found(buf) == 0)
 	{
 		if (read_return == 0)
-		{
-			free(buf);
-			return (line);
-		}
+			return (free(buf), line);
 		line = ft_strljoin(line, buf, read_return);
-		// printf("stiiin+++++ %s\n", line);//
+		if (line == 0)
+			return (free(line), free(buf), NULL);
 		read_return = read(fd, buf, BUFFER_SIZE);
 		if (read_return < 0)
-		{
-			free (buf);
-			free (line);
-			return (0);
-		}
+			return (free(line), free(buf), NULL);
 		buf[read_return] = 0;
-		// printf("read return 2---------> %\n", read_return);//
 	}
 	len = next_line_found(buf);
-	line = ft_strljoin(line, buf, len);//
+	line = ft_strljoin(line, buf, len);
+	if (line == 0)
+		return(free (line), free(buf), NULL);
 	if (len == read_return)
 		return (free(buf), line);
-	*leftovers = gnl_copier(buf + len, (read_return - len) + 1);
+	*leftovers = ft_strndup(buf + len, (read_return - len) + 1);
 	if (!*leftovers)
-	{
-		free(line);
-		free(buf);
-		return (0);
-	}	
-	free(buf);
-	return (line);
+		return (free(line), free(buf), NULL);
+	return (free(buf), line);
 }
 
 char	*get_next_line(int fd)
@@ -270,14 +79,14 @@ char	*get_next_line(int fd)
 	char		*line;
 	int			len;
 
-	line = NULL;
 	if (leftovers == NULL)
 	{
-		line = reader(fd, line, &leftovers);
+		line = reader(fd, NULL, &leftovers);
 		if (line == 0)
 		{
-			free (leftovers);
-			return (0);
+			free(leftovers);
+			leftovers = NULL;
+			return (NULL);
 		}
 		return (line);
 	}
@@ -286,22 +95,19 @@ char	*get_next_line(int fd)
 		len = (next_line_found(leftovers));
 		if (len > 0)
 		{
-			line = gnl_copier(leftovers, len);
+			line = ft_strndup(leftovers, len);
 			if (line == 0)
-			{
-				free (leftovers);
-				return (0);
-			}
-			ft_strlcpy(leftovers, leftovers + len, (BUFFER_SIZE - len) + 1);
+				return (free (leftovers), NULL);
+			ft_strlcpy(leftovers, leftovers + len, BUFFER_SIZE - len + 1);
 		}
 		if (len == 0)
 		{
-			line = gnl_copier(leftovers, ft_strlen(leftovers));
+			line = ft_strndup(leftovers, ft_strlen(leftovers));
 			if (line == 0)
 			{
 				free(leftovers);
 				leftovers = NULL;
-				return (0);
+				return (NULL);
 			}	
 			free(leftovers);
 			leftovers = NULL;
@@ -310,8 +116,8 @@ char	*get_next_line(int fd)
 			{
 				free(leftovers);
 				leftovers = NULL;
-				return (0);
-			}
+				return (NULL);
+			}	
 		}	
 		return (line);
 	}

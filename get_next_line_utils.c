@@ -22,34 +22,6 @@ size_t	ft_strlen(const char *s)
 	return (len);
 }
 
-char	*ft_strljoin(char *s1, char *s2, int len_s2)
-{
-	char	*string;
-	int		s1_len;
-	int		j;
-
-	if (s1 == 0)
-	{
-		string = malloc(len_s2 + 1);
-		if (!string)
-			return (NULL);
-		ft_strlcpy(string, s2, len_s2 + 1);
-		return (string);
-	}
-	s1_len = ft_strlen(s1);
-	string = malloc(s1_len + len_s2 + 1);
-	if (!string)
-		return (NULL);
-	while (*s1 != 0)
-		*string++ = *s1++;
-	j = 0;
-	while (j++ != len_s2)
-		*string++ = *s2++;
-	*string = 0;
-	free(s1 - s1_len);
-	return (string - s1_len - len_s2);
-}
-
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
 	size_t	i;
@@ -69,15 +41,50 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 	return (i);
 }
 
-char	*ft_strdup(const char *s1)
+/* char	*ft_strljoin(char *s1, char *s2, int len_s2)
+Allocates and returns a new string, which is the result of the 
+concatenation of ’s1’ and maximum of len_s2 characters of ’s2’ and 
+frees 's1' after the concatenation */
+char	*ft_strljoin(char *s1, char *s2, int len_s2)
 {
-	char	*s1_cpy;
-	size_t	size;
+	char	*string;
+	int		s1_len;
+	int		j;
 
-	size = ft_strlen(s1) + 1;
-	s1_cpy = (char *)malloc(size);
-	if (s1_cpy == 0)
-		return (0);
-	ft_strlcpy(s1_cpy, s1, size);
-	return (s1_cpy);
+	if (s1 == 0)
+	{
+		string = malloc(len_s2 + 1);
+		if (!string)
+			return (free (string), NULL);
+		ft_strlcpy(string, s2, len_s2 + 1);
+		return (string);
+	}
+	s1_len = ft_strlen(s1);
+	string = malloc(s1_len + len_s2 + 1);
+	if (!string)
+		return (free(string), NULL);
+	while (*s1 != 0)
+		*string++ = *s1++;
+	j = 0;
+	while (j++ != len_s2)
+		*string++ = *s2++;
+	*string = 0;
+	free(s1 - s1_len);
+	return (string - s1_len - len_s2);
+}
+
+/* char	*ft_strndup(const char *str, size_t len)
+Returns a pointer to a null-terminated byte string, which contains 
+copies of at most size bytes from the string pointed to by str */
+char	*ft_strndup(const char *str, size_t len)
+{
+	char	*dst;
+
+	if (!str || len == 0)
+		return (NULL);
+	dst = malloc((len + 1) * sizeof(char));
+	if (!dst)
+		return (NULL);
+	ft_strlcpy(dst, str, len + 1);
+	return (dst);
 }
