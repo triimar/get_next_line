@@ -1,13 +1,14 @@
-123456
-7891
+Marie Under
+Suudlus (Estonian)
+
 Su suu minu suus
 su hing minu ihus
 su suu mu suus
 me vili küpseb samas vihus.
 
 Su suu mu suus
-su närvilülid mu närvikees, 
-su suu mu suus 
+su närvilülid mu närvikees,
+su suu mu suus
 su süda tuksub kui minu sees.
 
 Kus lõped sa?
@@ -32,5 +33,5 @@ me sammud kaotand maise tee,
 ei tagasi vii too, ei see.
 
 Su suu mu suus
-su hing mu kehas - 
+su hing mu kehas -
 me hõljume ehas.
