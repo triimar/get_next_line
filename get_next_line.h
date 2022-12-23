@@ -6,7 +6,7 @@
 /*   By: tmarts <tmarts@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 20:50:45 by tmarts            #+#    #+#             */
-/*   Updated: 2022/12/23 21:45:58 by tmarts           ###   ########.fr       */
+/*   Updated: 2022/12/23 22:05:35 by tmarts           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include <stdlib.h>
 # include <unistd.h>
-// # include <stdio.h> // removeee!!
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 22
