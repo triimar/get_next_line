@@ -6,13 +6,13 @@
 /*   By: tmarts <tmarts@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 21:40:55 by tmarts            #+#    #+#             */
-/*   Updated: 2022/12/23 21:42:22 by tmarts           ###   ########.fr       */
+/*   Updated: 2022/12/23 22:44:50 by tmarts           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int	next_line_found(char *str)
+int	ft_linelen(char *str)
 {
 	int	i;
 
@@ -70,7 +70,7 @@ char	*reader(int fd, char *line, char **leftovers)
 	if (!buf)
 		return (NULL);
 	read_return = ft_strlen(buf);
-	while (next_line_found(buf) == 0 && read_return != 0)
+	while (ft_linelen(buf) == 0 && read_return != 0)
 	{
 		line = ft_strljoin(line, buf, read_return);
 		if (line == 0)
@@ -80,7 +80,7 @@ char	*reader(int fd, char *line, char **leftovers)
 			return (free(line), free(buf), NULL);
 		buf[read_return] = 0;
 	}
-	len = next_line_found(buf);
+	len = ft_linelen(buf);
 	line = ft_strljoin(line, buf, len);
 	if (line == 0 || len == read_return)
 		return (free(buf), line);
@@ -98,7 +98,7 @@ char	*get_next_line(int fd)
 
 	if (leftovers == NULL)
 		return (reader(fd, NULL, &leftovers));
-	len = (next_line_found(leftovers));
+	len = (ft_linelen(leftovers));
 	if (len > 0)
 	{
 		line = ft_strndup(leftovers, len);

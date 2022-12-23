@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmarts <tmarts@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/08 20:50:45 by tmarts            #+#    #+#             */
-/*   Updated: 2022/12/23 22:46:19 by tmarts           ###   ########.fr       */
+/*   Created: 2022/12/23 22:04:24 by tmarts            #+#    #+#             */
+/*   Updated: 2022/12/23 22:47:24 by tmarts           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 
 # include <stdlib.h>
 # include <unistd.h>
@@ -20,13 +20,13 @@
 #  define BUFFER_SIZE 22
 # endif
 
-/*get_next_line*/
+/*get_next_line_bonus*/
 char	*read_initiate(int fd);
 char	*free_reader(char *buf, char *line);
 char	*reader(int fd, char *line, char **leftovers);
 char	*get_next_line(int fd);
 
-/*utils*/
+/*utils_bonus*/
 size_t	ft_strlen(const char *s);
 size_t	ft_linelen(const char *str);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);

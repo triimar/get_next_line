@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmarts <tmarts@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/15 18:11:01 by tmarts            #+#    #+#             */
-/*   Updated: 2022/12/23 22:45:18 by tmarts           ###   ########.fr       */
+/*   Created: 2022/12/23 22:04:20 by tmarts            #+#    #+#             */
+/*   Updated: 2022/12/23 23:05:50 by tmarts           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,31 +68,35 @@ char	*reader(int fd, char *line, char **leftovers)
 	return (free(buf), line);
 }
 
+char	*free_leftovers(char **leftovers)
+{
+	free(*leftovers);
+	*leftovers = NULL;
+	return (NULL);
+}
+
 char	*get_next_line(int fd)
 {
-	static char	*leftovers;
+	static char	*leftovers[1024];
 	char		*line;
 	int			len;
 
-	if (leftovers == NULL)
-		return (reader(fd, NULL, &leftovers));
-	len = (ft_linelen(leftovers));
+	if (fd < 0 || fd > 1024)
+		return (NULL);
+	if (leftovers[fd] == NULL)
+		return (reader(fd, NULL, &(leftovers[fd])));
+	len = (ft_linelen(leftovers[fd]));
 	if (len > 0)
 	{
-		line = ft_strndup(leftovers, len);
+		line = ft_strndup(leftovers[fd], len);
 		if (line == 0)
-		{
-			free(leftovers);
-			leftovers = NULL;
-			return (NULL);
-		}
-		ft_strlcpy(leftovers, leftovers + len, BUFFER_SIZE - len + 1);
+			return (free_leftovers(&(leftovers[fd])));
+		ft_strlcpy(leftovers[fd], leftovers[fd] + len, BUFFER_SIZE - len + 1);
 		return (line);
 	}
-	line = ft_strndup(leftovers, ft_strlen(leftovers));
-	free(leftovers);
-	leftovers = NULL;
+	line = ft_strndup(leftovers[fd], ft_strlen(leftovers[fd]));
+	free_leftovers(&(leftovers[fd]));
 	if (line == 0)
 		return (NULL);
-	return (reader(fd, line, &leftovers));
+	return (reader(fd, line, &(leftovers[fd])));
 }
