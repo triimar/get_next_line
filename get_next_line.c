@@ -6,7 +6,7 @@
 /*   By: tmarts <tmarts@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 18:11:01 by tmarts            #+#    #+#             */
-/*   Updated: 2022/12/21 21:23:00 by tmarts           ###   ########.fr       */
+/*   Updated: 2022/12/23 21:44:15 by tmarts           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,21 @@ char	*read_initiate(int fd)
 		return (NULL);
 	read_return = read(fd, buf, BUFFER_SIZE);
 	if (read_return == -1)
-		return (free(buf), NULL);
+	{
+		free (buf);
+		return (NULL);
+	}
 	buf[read_return] = 0;
 	return (buf);
+}
+
+char	*free_reader(char *buf, char *line)
+{
+	if (line)
+		free(line);
+	if (buf)
+		free(buf);
+	return (NULL);
 }
 
 char	*reader(int fd, char *line, char **leftovers)
@@ -53,30 +65,25 @@ char	*reader(int fd, char *line, char **leftovers)
 	int		len;
 
 	buf = read_initiate(fd);
-	if (!buf && line)
-		return (free(line), NULL);
 	if (!buf)
-		return (NULL);
+		return (free_reader(buf, line));
 	read_return = ft_strlen(buf);
-	while (next_line_found(buf) == 0)
+	while (next_line_found(buf) == 0 && read_return != 0)
 	{
-		if (read_return == 0)
-			return (free(buf), line);
 		line = ft_strljoin(line, buf, read_return);
-		if (line == 0)
-			return (free(buf), NULL);
 		read_return = read(fd, buf, BUFFER_SIZE);
-		if (read_return == -1)
-			return (free(line), free(buf), NULL);
+		if (line == 0 || read_return == -1)
+			return (free_reader(buf, line));
 		buf[read_return] = 0;
 	}
 	len = next_line_found(buf);
 	line = ft_strljoin(line, buf, len);
-	if (line == 0 || len == read_return)
-		return (free(buf), line);
-	*leftovers = ft_strndup(buf + len, read_return - len + 1);
-	if (!*leftovers)
-		return (free(line), free(buf), NULL);
+	if (line != 0 && len != read_return)
+	{
+		*leftovers = ft_strndup(buf + len, read_return - len + 1);
+		if (!*leftovers)
+			return (free_reader(buf, line));
+	}	
 	return (free(buf), line);
 }
 
@@ -89,21 +96,22 @@ char	*get_next_line(int fd)
 	if (leftovers == NULL)
 		return (reader(fd, NULL, &leftovers));
 	len = (next_line_found(leftovers));
-	if (len == 0)
-	{
-		line = ft_strndup(leftovers, ft_strlen(leftovers));
-		free(leftovers);
-		leftovers = NULL;
-		if (line == 0)
-			return (NULL);
-		line = reader(fd, line, &leftovers);
-	}
 	if (len > 0)
 	{
 		line = ft_strndup(leftovers, len);
 		if (line == 0)
-			return (free (leftovers), NULL);
+		{
+			free(leftovers);
+			leftovers = NULL;
+			return (NULL);
+		}
 		ft_strlcpy(leftovers, leftovers + len, BUFFER_SIZE - len + 1);
+		return (line);
 	}
-	return (line);
+	line = ft_strndup(leftovers, ft_strlen(leftovers));
+	free(leftovers);
+	leftovers = NULL;
+	if (line == 0)
+		return (NULL);
+	return (reader(fd, line, &leftovers));
 }
