@@ -22,6 +22,10 @@ size_t	ft_strlen(const char *s)
 	return (len);
 }
 
+/* 
+ft size_t	ft_linelen(const char *str)
+Returns the number of characters in a string until '\n', including '\n' 
+*/
 size_t	ft_linelen(const char *str)
 {
 	size_t	i;

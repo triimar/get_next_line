@@ -6,12 +6,18 @@
 /*   By: tmarts <tmarts@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 18:11:01 by tmarts            #+#    #+#             */
-/*   Updated: 2022/12/23 22:45:18 by tmarts           ###   ########.fr       */
+/*   Updated: 2022/12/24 18:31:01 by tmarts           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
+/*
+char	*read_initiate(int fd)
+Allocates and returns a null terminated string 
+and returns the string after single implementation 
+of read(). Returns NULL in case of an error.
+*/
 char	*read_initiate(int fd)
 {
 	char	*buf;
@@ -39,6 +45,16 @@ char	*free_reader(char *buf, char *line)
 	return (NULL);
 }
 
+/*
+char	*reader (int fd, char *line, char **leftovers)
+Reads from fd, finding the first occurrence of '/n' and returning the
+new (or final) line found in the process of implementing read().
+Uses malloc () and free () to join the substrings that contain no '\n'.
+When '\n' is found - uses ft_strljoin() to create the final string to 
+be returned and allocates with use of strndup()the unexamined part 
+of the string to the static pointer "leftovers".
+Returns "line" or NULL in case of error
+*/
 char	*reader(int fd, char *line, char **leftovers)
 {
 	char	*buf;
@@ -68,6 +84,15 @@ char	*reader(int fd, char *line, char **leftovers)
 	return (free(buf), line);
 }
 
+/*
+char	*get_next_line(int fd)
+Returns a line read from a file descriptor.
+Process: 1) Checks the static variable "leftovers". Proceeds to read from fd if 
+the pointer is NULL. 2) Checks the content of static variable - returns the new 
+line if it is found in the static variable. 3) If '\n' is not found in a static 
+variable duplicates it to the return string and implements reader() function to 
+find the next occurrence of the '/n' in the fd.
+*/
 char	*get_next_line(int fd)
 {
 	static char	*leftovers;

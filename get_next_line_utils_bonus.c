@@ -6,7 +6,7 @@
 /*   By: tmarts <tmarts@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 22:04:27 by tmarts            #+#    #+#             */
-/*   Updated: 2022/12/23 22:50:54 by tmarts           ###   ########.fr       */
+/*   Updated: 2022/12/24 17:53:58 by tmarts           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,10 @@ size_t	ft_strlen(const char *s)
 	return (len);
 }
 
+/* 
+ft size_t	ft_linelen(const char *str)
+Returns the number of characters in a string until '\n', including '\n' 
+*/
 size_t	ft_linelen(const char *str)
 {
 	size_t	i;
@@ -60,10 +64,12 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 	return (i);
 }
 
-/* char	*ft_strljoin(char *s1, char *s2, int len_s2)
+/*
+char	*ft_strljoin(char *s1, char *s2, int len_s2)
 Allocates and returns a new string, which is the result of the 
-concatenation of ’s1’ and maximum of len_s2 characters of ’s2’ and 
-frees 's1' after the concatenation */
+concatenation of ’s1’ and maximum of len_s2 characters of ’s2’. 
+Function frees 's1' after the concatenation
+*/
 char	*ft_strljoin(char *s1, char *s2, int len_s2)
 {
 	char	*string;
@@ -91,9 +97,11 @@ char	*ft_strljoin(char *s1, char *s2, int len_s2)
 	return (string - s1_len - len_s2);
 }
 
-/* char	*ft_strndup(const char *str, size_t len)
+/* 
+char	*ft_strndup(const char *str, size_t len)
 Returns a pointer to a null-terminated byte string, which contains 
-copies of at most size bytes from the string pointed to by str */
+copies of at most size bytes from the string pointed to by str
+*/
 char	*ft_strndup(const char *str, size_t len)
 {
 	char	*dst;
