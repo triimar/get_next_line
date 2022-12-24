@@ -6,11 +6,11 @@
 /*   By: tmarts <tmarts@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 22:04:27 by tmarts            #+#    #+#             */
-/*   Updated: 2022/12/24 17:53:58 by tmarts           ###   ########.fr       */
+/*   Updated: 2022/12/24 19:16:28 by tmarts           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 size_t	ft_strlen(const char *s)
 {

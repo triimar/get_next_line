@@ -6,11 +6,11 @@
 /*   By: tmarts <tmarts@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 22:04:20 by tmarts            #+#    #+#             */
-/*   Updated: 2022/12/23 23:05:50 by tmarts           ###   ########.fr       */
+/*   Updated: 2022/12/24 19:16:20 by tmarts           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*read_initiate(int fd)
 {
