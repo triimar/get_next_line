@@ -6,7 +6,7 @@
 /*   By: tmarts <tmarts@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 20:50:45 by tmarts            #+#    #+#             */
-/*   Updated: 2022/12/23 22:46:19 by tmarts           ###   ########.fr       */
+/*   Updated: 2022/12/26 22:46:11 by tmarts           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 char	*read_initiate(int fd);
 char	*free_reader(char *buf, char *line);
 char	*reader(int fd, char *line, char **leftovers);
+char	*free_leftovers(char **leftovers);
 char	*get_next_line(int fd);
 
 /*utils*/

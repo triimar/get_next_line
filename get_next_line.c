@@ -6,7 +6,7 @@
 /*   By: tmarts <tmarts@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 18:11:01 by tmarts            #+#    #+#             */
-/*   Updated: 2022/12/24 18:31:01 by tmarts           ###   ########.fr       */
+/*   Updated: 2022/12/26 21:44:59 by tmarts           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	*reader(int fd, char *line, char **leftovers)
 {
 	char	*buf;
 	ssize_t	read_return;
-	int		len;
+	size_t	len;
 
 	buf = read_initiate(fd);
 	if (!buf)
@@ -75,13 +75,20 @@ char	*reader(int fd, char *line, char **leftovers)
 	}
 	len = ft_linelen(buf);
 	line = ft_strljoin(line, buf, len);
-	if (line != 0 && len != read_return)
+	if (line != 0 && len != (size_t)read_return)
 	{
 		*leftovers = ft_strndup(buf + len, read_return - len + 1);
 		if (!*leftovers)
 			return (free_reader(buf, line));
 	}	
 	return (free(buf), line);
+}
+
+char	*free_leftovers(char **left)
+{
+	free(*left);
+	*left = NULL;
+	return (NULL);
 }
 
 /*
@@ -95,29 +102,27 @@ find the next occurrence of the '/n' in the fd.
 */
 char	*get_next_line(int fd)
 {
-	static char	*leftovers;
+	static char	*left;
 	char		*line;
-	int			len;
+	size_t		len;
 
-	if (leftovers == NULL)
-		return (reader(fd, NULL, &leftovers));
-	len = (ft_linelen(leftovers));
+	if (left == NULL)
+		return (reader(fd, NULL, &left));
+	len = (ft_linelen(left));
 	if (len > 0)
 	{
-		line = ft_strndup(leftovers, len);
-		if (line == 0)
-		{
-			free(leftovers);
-			leftovers = NULL;
-			return (NULL);
-		}
-		ft_strlcpy(leftovers, leftovers + len, BUFFER_SIZE - len + 1);
+		line = ft_strndup(left, len);
+		if (!line)
+			return (free_leftovers(&left));
+		if (len == ft_strlen(left))
+			free_leftovers(&left);
+		else
+			ft_strlcpy(left, left + len, ft_strlen(left) - len + 1);
 		return (line);
 	}
-	line = ft_strndup(leftovers, ft_strlen(leftovers));
-	free(leftovers);
-	leftovers = NULL;
+	line = ft_strndup(left, ft_strlen(left));
+	free_leftovers(&left);
 	if (line == 0)
 		return (NULL);
-	return (reader(fd, line, &leftovers));
+	return (reader(fd, line, &left));
 }

@@ -6,7 +6,7 @@
 /*   By: tmarts <tmarts@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 22:04:20 by tmarts            #+#    #+#             */
-/*   Updated: 2022/12/24 19:16:20 by tmarts           ###   ########.fr       */
+/*   Updated: 2022/12/26 21:11:22 by tmarts           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,11 @@ char	*free_reader(char *buf, char *line)
 	return (NULL);
 }
 
-char	*reader(int fd, char *line, char **leftovers)
+char	*reader(int fd, char *line, char **left)
 {
 	char	*buf;
 	ssize_t	read_return;
-	int		len;
+	size_t	len;
 
 	buf = read_initiate(fd);
 	if (!buf)
@@ -59,44 +59,47 @@ char	*reader(int fd, char *line, char **leftovers)
 	}
 	len = ft_linelen(buf);
 	line = ft_strljoin(line, buf, len);
-	if (line != 0 && len != read_return)
+	if (line != 0 && len != (size_t)read_return)
 	{
-		*leftovers = ft_strndup(buf + len, read_return - len + 1);
-		if (!*leftovers)
+		*left = ft_strndup(buf + len, read_return - len + 1);
+		if (!*left)
 			return (free_reader(buf, line));
 	}	
 	return (free(buf), line);
 }
 
-char	*free_leftovers(char **leftovers)
+char	*free_leftovers(char **left)
 {
-	free(*leftovers);
-	*leftovers = NULL;
+	free(*left);
+	*left = NULL;
 	return (NULL);
 }
 
 char	*get_next_line(int fd)
 {
-	static char	*leftovers[1024];
+	static char	*left[1024];
 	char		*line;
-	int			len;
+	size_t		len;
 
 	if (fd < 0 || fd > 1024)
 		return (NULL);
-	if (leftovers[fd] == NULL)
-		return (reader(fd, NULL, &(leftovers[fd])));
-	len = (ft_linelen(leftovers[fd]));
+	if (left[fd] == NULL)
+		return (reader(fd, NULL, &(left[fd])));
+	len = (ft_linelen(left[fd]));
 	if (len > 0)
 	{
-		line = ft_strndup(leftovers[fd], len);
+		line = ft_strndup(left[fd], len);
 		if (line == 0)
-			return (free_leftovers(&(leftovers[fd])));
-		ft_strlcpy(leftovers[fd], leftovers[fd] + len, BUFFER_SIZE - len + 1);
+			return (free_leftovers(&(left[fd])));
+		if (len == ft_strlen(left[fd]))
+			free_leftovers(&(left[fd]));
+		else
+			ft_strlcpy(left[fd], left[fd] + len, ft_strlen(left[fd]) - len + 1);
 		return (line);
 	}
-	line = ft_strndup(leftovers[fd], ft_strlen(leftovers[fd]));
-	free_leftovers(&(leftovers[fd]));
+	line = ft_strndup(left[fd], ft_strlen(left[fd]));
+	free_leftovers(&(left[fd]));
 	if (line == 0)
 		return (NULL);
-	return (reader(fd, line, &(leftovers[fd])));
+	return (reader(fd, line, &(left[fd])));
 }
