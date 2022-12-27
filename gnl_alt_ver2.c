@@ -6,15 +6,15 @@
 /*   By: tmarts <tmarts@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 21:40:55 by tmarts            #+#    #+#             */
-/*   Updated: 2022/12/23 22:44:50 by tmarts           ###   ########.fr       */
+/*   Updated: 2022/12/26 18:59:10 by tmarts           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int	ft_linelen(char *str)
+size_t	ft_linelen(const char *str)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	if (!str)

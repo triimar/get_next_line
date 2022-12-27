@@ -6,7 +6,7 @@
 /*   By: tmarts <tmarts@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 18:11:01 by tmarts            #+#    #+#             */
-/*   Updated: 2022/12/26 21:44:59 by tmarts           ###   ########.fr       */
+/*   Updated: 2022/12/27 15:20:40 by tmarts           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ char	*reader(int fd, char *line, char **leftovers)
 	return (free(buf), line);
 }
 
-char	*free_leftovers(char **left)
+char	*null_leftovers(char **left)
 {
 	free(*left);
 	*left = NULL;
@@ -113,15 +113,15 @@ char	*get_next_line(int fd)
 	{
 		line = ft_strndup(left, len);
 		if (!line)
-			return (free_leftovers(&left));
+			return (null_leftovers(&left));
 		if (len == ft_strlen(left))
-			free_leftovers(&left);
+			null_leftovers(&left);
 		else
 			ft_strlcpy(left, left + len, ft_strlen(left) - len + 1);
 		return (line);
 	}
 	line = ft_strndup(left, ft_strlen(left));
-	free_leftovers(&left);
+	null_leftovers(&left);
 	if (line == 0)
 		return (NULL);
 	return (reader(fd, line, &left));

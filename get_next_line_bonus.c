@@ -6,7 +6,7 @@
 /*   By: tmarts <tmarts@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 22:04:20 by tmarts            #+#    #+#             */
-/*   Updated: 2022/12/26 21:11:22 by tmarts           ###   ########.fr       */
+/*   Updated: 2022/12/27 15:19:49 by tmarts           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ char	*reader(int fd, char *line, char **left)
 	return (free(buf), line);
 }
 
-char	*free_leftovers(char **left)
+char	*null_leftovers(char **left)
 {
 	free(*left);
 	*left = NULL;
@@ -90,15 +90,15 @@ char	*get_next_line(int fd)
 	{
 		line = ft_strndup(left[fd], len);
 		if (line == 0)
-			return (free_leftovers(&(left[fd])));
+			return (null_leftovers(&(left[fd])));
 		if (len == ft_strlen(left[fd]))
-			free_leftovers(&(left[fd]));
+			null_leftovers(&(left[fd]));
 		else
 			ft_strlcpy(left[fd], left[fd] + len, ft_strlen(left[fd]) - len + 1);
 		return (line);
 	}
 	line = ft_strndup(left[fd], ft_strlen(left[fd]));
-	free_leftovers(&(left[fd]));
+	null_leftovers(&(left[fd]));
 	if (line == 0)
 		return (NULL);
 	return (reader(fd, line, &(left[fd])));
