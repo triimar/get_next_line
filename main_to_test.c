@@ -6,7 +6,7 @@
 /*   By: tmarts <tmarts@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 18:53:36 by tmarts            #+#    #+#             */
-/*   Updated: 2022/12/26 20:53:58 by tmarts           ###   ########.fr       */
+/*   Updated: 2024/03/14 14:54:16 by tmarts           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,17 @@
 
 char	*get_next_line(int fd);
 
-int	main (void)
+int	main(int argc, char *argv[])
 {
 	int		fd1;
 	char	*str;
 
-	fd1 = open("test", O_RDONLY);
+	if (argc != 2)
+	{
+		printf("Program requires one argument");
+		return (1);
+	}
+	fd1 = open(argv[1], O_RDONLY);
 	str = get_next_line(fd1);
 	while (str)
 	{

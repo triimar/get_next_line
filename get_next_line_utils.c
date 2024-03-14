@@ -80,7 +80,7 @@ char	*ft_strljoin(char *s1, char *s2, int len_s2)
 	{
 		string = ft_strndup(s2, len_s2);
 		return (string);
-	}	
+	}
 	s1_len = ft_strlen(s1);
 	string = malloc(s1_len + len_s2 + 1 * sizeof(char));
 	if (!string)

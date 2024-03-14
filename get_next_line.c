@@ -6,7 +6,7 @@
 /*   By: tmarts <tmarts@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 18:11:01 by tmarts            #+#    #+#             */
-/*   Updated: 2022/12/27 15:20:40 by tmarts           ###   ########.fr       */
+/*   Updated: 2024/03/14 14:45:54 by tmarts           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 /*
 char	*read_initiate(int fd)
 Allocates and returns a null terminated string 
-and returns the string after single implementation 
-of read(). Returns NULL in case of an error.
+after single implementation of read(). 
+Returns NULL in case of an error.
 */
 char	*read_initiate(int fd)
 {
@@ -47,13 +47,13 @@ char	*free_reader(char *buf, char *line)
 
 /*
 char	*reader (int fd, char *line, char **leftovers)
-Reads from fd, finding the first occurrence of '/n' and returning the
+Reads from fd, finding the first occurrence of '\n' and returning the
 new (or final) line found in the process of implementing read().
 Uses malloc () and free () to join the substrings that contain no '\n'.
 When '\n' is found - uses ft_strljoin() to create the final string to 
 be returned and allocates with use of strndup()the unexamined part 
 of the string to the static pointer "leftovers".
-Returns "line" or NULL in case of error
+Returns "line" or NULL in case of error.
 */
 char	*reader(int fd, char *line, char **leftovers)
 {
@@ -80,7 +80,7 @@ char	*reader(int fd, char *line, char **leftovers)
 		*leftovers = ft_strndup(buf + len, read_return - len + 1);
 		if (!*leftovers)
 			return (free_reader(buf, line));
-	}	
+	}
 	return (free(buf), line);
 }
 
